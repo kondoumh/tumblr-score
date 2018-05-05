@@ -1,0 +1,21 @@
+{
+    "name": "tumblr-score",
+    "version": "0.1.0",
+    "description": "Fetch Your Tumblr Score(Reblog, like) via Tumblr API.",
+    "main": "main.js",
+    "scripts": {
+        "start": "node main.js",
+        "production": "NODE_ENV=production node main.js"
+    },
+    "keywords": [
+        "tumblr"
+    ],
+    "author": "kondoumh",
+    "license": "ISC",
+    "devDependencies": {
+        "config": "^1.30.0",
+        "node-fetch": "^2.1.2",
+        "progress": "^2.0.0",
+        "underscore": "^1.9.0"
+    }
+}
