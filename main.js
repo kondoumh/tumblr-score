@@ -6,6 +6,8 @@ const config = require('config');
 const baseurl = "https://api.tumblr.com/v2/blog/";
 const identifier = config.get('Blog.identifier');
 const apiKey = config.get('Blog.apiKey');
+const moment = require('moment');
+const fs = require('fs');
 
 let targetPosts = [];
 
@@ -44,16 +46,26 @@ const fetchPosts = async(type, offset, minCount = 0) => {
         });
 }
 
+const output = (path, data) => {
+    fs.writeFile(path, data, (err) => {
+        if (err) { throw err; }
+    });
+}
+
 const fetchMyPosts = async() => {
     await fetchBlog();
-    const count = await getPostCount();
+    const count = 50; //await getPostCount();
     let offset = 0;
-    const bar = new ProgressBar('fetching [:bar] :percent', { total: 100, width: 100 });
-    while (offset <= 100 /* count */ ) {
+    const bar = new ProgressBar('fetching [:bar] :percent', { total: 50, width: 100 });
+    while (offset <= count) {
         await fetchPosts('', offset, 2);
         offset += 20;
         bar.tick(20);
     }
-    _.each(targetPosts, (post) => { console.log(post.url, post.date, post.type, post.slug, post.count) });
+    const fileName = 'tumblr-score-' + moment().format("YYYYMMDDHHmmss");
+    let csv = ''
+    _.each(targetPosts, (post) => { csv += `${post.url},${post.date},${post.type},${post.slug},${post.count}\n` });
+    output(`work/${fileName}.csv`, csv);
+    output(`work/${fileName}.json`, JSON.stringify(targetPosts, null, 2))
 }
 fetchMyPosts();
