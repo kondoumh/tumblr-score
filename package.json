@@ -16,6 +16,7 @@
     "config": "^1.30.0",
     "moment": "^2.22.1",
     "node-fetch": "^2.1.2",
+    "performance-now": "^2.1.0",
     "progress": "^2.0.0",
     "underscore": "^1.9.0"
   }

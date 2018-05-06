@@ -8,6 +8,7 @@ const identifier = config.get('Blog.identifier');
 const apiKey = config.get('Blog.apiKey');
 const moment = require('moment');
 const fs = require('fs');
+const performance = require('performance-now');
 
 let targetPosts = [];
 
@@ -57,11 +58,13 @@ const fetchMyPosts = async() => {
     const count = await getPostCount();
     let offset = 0;
     const bar = new ProgressBar('fetching [:bar] :percent', { total: count, width: 100 });
+    const start_ms = performance();
     while (offset <= count) {
         await fetchPosts('', offset, 2);
         offset += 20;
         bar.tick(20);
     }
+    console.log((performance() - start_ms).toFixed(3) + ' elapsed.');
     const fileName = 'tumblr-score-' + moment().format("YYYYMMDDHHmmss");
     let csv = ''
     _.each(targetPosts, (post) => { csv += `${post.url},${post.date},${post.type},${post.slug},${post.count}\n` });
