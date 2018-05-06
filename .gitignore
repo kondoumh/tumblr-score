@@ -69,3 +69,6 @@ jspm_packages
 
 # config/production.json
 production.json
+
+# work output
+tumblr-score*
