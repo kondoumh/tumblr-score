@@ -11,7 +11,7 @@ let targetPosts = [];
 
 const fetchBlog = async() => {
     await fetch(`${baseurl}${identifier}/info?api_key=${apiKey}`).then(response => response.json()).then(json => {
-        var blog = json['response']['blog'];
+        const blog = json['response']['blog'];
         console.log(`title: ${blog['title']}`);
         console.log(`posts: ${blog['posts']}`);
         console.log(`url: ${blog['url']}`);
@@ -19,7 +19,7 @@ const fetchBlog = async() => {
 }
 
 const getPostCount = async() => {
-    var count = await fetch(`${baseurl}${identifier}/info?api_key=${apiKey}`)
+    const count = await fetch(`${baseurl}${identifier}/info?api_key=${apiKey}`)
         .then(response => response.json()).then(json => {
             return json['response']['blog']['posts'];
         });
@@ -31,7 +31,7 @@ const fetchPosts = async(type, offset, minCount = 0) => {
         .then(response => response.json()).then(json => {
             _.each(json['response']['posts'], function(post) {
                 if (!post['reblogged_root_name'] && parseInt(post['note_count']) >= minCount) {
-                    var postInfo = {
+                    const postInfo = {
                         url: `'http://reblog.kondoumh.com/post/${post['id']}'`,
                         date: `'${post['date']}'`,
                         type: `'${post['type']}'`,
@@ -46,9 +46,9 @@ const fetchPosts = async(type, offset, minCount = 0) => {
 
 const fetchMyPosts = async() => {
     await fetchBlog();
-    var count = await getPostCount();
-    var offset = 0;
-    var bar = new ProgressBar('fetching [:bar] :percent', { total: 100, width: 100 });
+    const count = await getPostCount();
+    let offset = 0;
+    const bar = new ProgressBar('fetching [:bar] :percent', { total: 100, width: 100 });
     while (offset <= 100 /* count */ ) {
         await fetchPosts('', offset, 2);
         offset += 20;
