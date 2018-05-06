@@ -34,7 +34,7 @@ const fetchPosts = async(type, offset, minCount = 0) => {
             _.each(json['response']['posts'], function(post) {
                 if (!post['reblogged_root_name'] && parseInt(post['note_count']) >= minCount) {
                     const postInfo = {
-                        url: `'http://reblog.kondoumh.com/post/${post['id']}'`,
+                        url: `'https://${identifier}/post/${post['id']}'`,
                         date: `'${post['date']}'`,
                         type: `'${post['type']}'`,
                         slug: `'${post['slug']}'`,
@@ -54,9 +54,9 @@ const output = (path, data) => {
 
 const fetchMyPosts = async() => {
     await fetchBlog();
-    const count = 50; //await getPostCount();
+    const count = await getPostCount();
     let offset = 0;
-    const bar = new ProgressBar('fetching [:bar] :percent', { total: 50, width: 100 });
+    const bar = new ProgressBar('fetching [:bar] :percent', { total: count, width: 100 });
     while (offset <= count) {
         await fetchPosts('', offset, 2);
         offset += 20;
