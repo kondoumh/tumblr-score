@@ -1,6 +1,5 @@
 const _ = require('underscore');
 const fetch = require('node-fetch');
-const ProgressBar = require('progress');
 const config = require('config');
 
 const baseurl = "https://api.tumblr.com/v2/blog/";
@@ -32,6 +31,7 @@ const getPostCount = async() => {
 const fetchPosts = async(type, offset, minCount = 0) => {
     await fetch(`${baseurl}${identifier}/posts/${type}?notes_info=true&reblog_info=true&offset=${offset}&api_key=${apiKey}`)
         .then(response => response.json()).then(json => {
+            process.stdout.write('\r' + offset);
             _.each(json['response']['posts'], function(post) {
                 if (!post['reblogged_root_name'] && parseInt(post['note_count']) >= minCount) {
                     const postInfo = {
@@ -57,18 +57,25 @@ const fetchMyPosts = async() => {
     await fetchBlog();
     const count = await getPostCount();
     let offset = 0;
-    const bar = new ProgressBar('fetching [:bar] :percent', { total: count, width: 100 });
     const start_ms = performance();
+    let tasks = [];
     while (offset <= count) {
-        await fetchPosts('', offset, 2);
+        tasks.push(fetchPosts('', offset, 2));
         offset += 20;
-        bar.tick(20);
     }
-    console.log((performance() - start_ms).toFixed(3) + ' elapsed.');
-    const fileName = 'tumblr-score-' + moment().format("YYYYMMDDHHmmss");
-    let csv = ''
-    _.each(targetPosts, (post) => { csv += `${post.url},${post.date},${post.type},${post.slug},${post.count}\n` });
-    output(`work/${fileName}.csv`, csv);
-    output(`work/${fileName}.json`, JSON.stringify(targetPosts, null, 2))
+    Promise.all(tasks).then(() => {
+        console.log('\n' + (performance() - start_ms).toFixed(3) + ' elapsed.');
+        const fileName = 'tumblr-score-' + moment().format("YYYYMMDDHHmmss");
+        let csv = ''
+        targetPosts.sort((a, b) => {
+            if (a.date < b.date) return -1;
+            if (a.date > b.date) return 1;
+            return 0;
+        });
+        _.each(targetPosts, (post) => { csv += `${post.url},${post.date},${post.type},${post.slug},${post.count}\n` });
+        output(`work/${fileName}.csv`, csv);
+        output(`work/${fileName}.json`, JSON.stringify(targetPosts, null, 2))
+    });
 }
+
 fetchMyPosts();
