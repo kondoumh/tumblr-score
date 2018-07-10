@@ -68,8 +68,8 @@ const fetchMyPosts = async() => {
         const fileName = 'tumblr-score-' + moment().format("YYYYMMDDHHmmss");
         let csv = ''
         targetPosts.sort((a, b) => {
-            if (a.date < b.date) return -1;
-            if (a.date > b.date) return 1;
+            if (a.date > b.date) return -1;
+            if (a.date < b.date) return 1;
             return 0;
         });
         _.each(targetPosts, (post) => { csv += `${post.url},${post.date},${post.type},${post.slug},${post.count}\n` });
