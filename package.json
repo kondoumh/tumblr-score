@@ -5,7 +5,8 @@
   "main": "main.js",
   "scripts": {
     "start": "node main.js",
-    "production": "NODE_ENV=production node main.js"
+    "production": "NODE_ENV=production node main.js",
+    "windows": "set NODE_ENV=production&&node main.js"
   },
   "keywords": [
     "tumblr"
