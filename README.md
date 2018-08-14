@@ -12,8 +12,17 @@ modify production.json
     }
 }
 ```
-- npm install
-- npm run production
+
+install packages.
+
+```
+$ npm install
+```
+
+run
+```
+$ npm start
+```
 
 Result file(CSV / JSON) will be created.
 
