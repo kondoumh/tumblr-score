@@ -12,11 +12,9 @@
   ],
   "author": "kondoumh",
   "license": "ISC",
-  "devDependencies": {
-    "config": "^1.30.0",
-    "moment": "^2.22.1",
-    "node-fetch": "^2.1.2",
-    "performance-now": "^2.1.0",
-    "underscore": "^1.9.0"
+  "dependencies": {
+    "config": "^3.1.0",
+    "node-fetch": "^2.6.0",
+    "performance-now": "^2.1.0"
   }
 }
