@@ -55,16 +55,6 @@ const output = (path, data) => {
     });
 }
 
-const getDateString = () => {
-    let date = new Date()
-    const options = {
-        year: "numeric", month: "numeric", day: "numeric",
-        hour: "numeric", minute: "numeric", second: "numeric",
-        hour12: false
-    };
-    return date.toLocaleString("ja-JP", options);
-}
-
 const fetchMyPosts = async () => {
     const count = await fetchCount();
     let offset = 0;
@@ -76,18 +66,12 @@ const fetchMyPosts = async () => {
     }
     await Promise.all(tasks);
     console.log('\n' + (performance() - start_ms).toFixed(3) + ' elapsed.');
-    const fileName = 'tumblr-score-' + getDateString();
-    let csv = ''
     targetPosts.sort((a, b) => {
         if (a.date > b.date) return -1;
         if (a.date < b.date) return 1;
         return 0;
     });
-    targetPosts.forEach(post => {
-        csv += `${post.url},${post.date},${post.type},${post.slug},${post.count}\n`
-    });
-    output(`work/${fileName}.csv`, csv);
-    output(`work/${fileName}.json`, JSON.stringify(targetPosts, null, 2));
+    output(`public/tumblr-score.json`, JSON.stringify(targetPosts, null, 2));
 }
 
 fetchMyPosts();
