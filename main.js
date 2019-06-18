@@ -2,8 +2,16 @@ const fetch = require('node-fetch');
 const config = require('config');
 
 const baseurl = "https://api.tumblr.com/v2/blog/";
-const identifier = config.get('Blog.identifier');
-const apiKey = config.get('Blog.apiKey');
+let identifier = process.env.BLOG_IDENTIFIER;
+if (!identifier) {
+    identifier = config.get('Blog.identifier');
+    console.log(identifier);
+}
+let apiKey = process.env.BLOG_API_KEY;
+if (!apiKey) {
+    apiKey = config.get('Blog.apiKey');
+    console.log(apiKey);
+}
 const fs = require('fs');
 const performance = require('performance-now');
 
