@@ -68,7 +68,7 @@ jspm_packages
 .node_repl_history
 
 # config/production.json
-production.json
+dev.json
 
 # work output
 tumblr-score*
