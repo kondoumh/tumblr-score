@@ -5,8 +5,6 @@ const baseurl = "https://api.tumblr.com/v2/blog/";
 const identifier = process.env.BLOG_IDENTIFIER ? process.env.BLOG_IDENTIFIER : config.get('Blog.identifier');
 const apiKey = process.env.BLOG_API_KEY ? process.env.BLOG_API_KEY : config.get('Blog.apiKey');
 
-console.log(identifier);
-console.log(apiKey);
 if (!apiKey || !identifier) {
     console.error("API Key or blog identifier not set.");
     process.exit(1);
@@ -16,7 +14,7 @@ const performance = require('performance-now');
 
 let targetPosts = [];
 
-const fetchCount = async() => {
+const fetchCount = async () => {
     const response = await fetch(`${baseurl}${identifier}/info?api_key=${apiKey}`);
     const json = await response.json();
     const blog = json['response']['blog'];
@@ -31,7 +29,7 @@ const fetchCount = async() => {
     return parseInt(count);
 }
 
-const fetchPosts = async(type, offset, minCount = 0) => {
+const fetchPosts = async (type, offset, minCount = 0) => {
     const response = await fetch(`${baseurl}${identifier}/posts/${type}?notes_info=true&reblog_info=true&offset=${offset}&api_key=${apiKey}`);
     const json = await response.json();
     process.stdout.write('\r' + offset);
@@ -60,14 +58,14 @@ const output = (path, data) => {
 const getDateString = () => {
     let date = new Date()
     const options = {
-      year: "numeric", month: "numeric", day: "numeric",
-      hour: "numeric", minute: "numeric", second: "numeric",
-      hour12: false
+        year: "numeric", month: "numeric", day: "numeric",
+        hour: "numeric", minute: "numeric", second: "numeric",
+        hour12: false
     };
     return date.toLocaleString("ja-JP", options);
 }
 
-const fetchMyPosts = async() => {
+const fetchMyPosts = async () => {
     const count = await fetchCount();
     let offset = 0;
     const start_ms = performance();
@@ -86,7 +84,7 @@ const fetchMyPosts = async() => {
         return 0;
     });
     targetPosts.forEach(post => {
-         csv += `${post.url},${post.date},${post.type},${post.slug},${post.count}\n`
+        csv += `${post.url},${post.date},${post.type},${post.slug},${post.count}\n`
     });
     output(`work/${fileName}.csv`, csv);
     output(`work/${fileName}.json`, JSON.stringify(targetPosts, null, 2));
