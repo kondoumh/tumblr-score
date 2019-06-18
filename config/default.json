@@ -1,6 +1,6 @@
 {
     "Blog": {
-        "identifier": "your.tumblr.identifier",
-        "apiKey": "yourapikey"
+        "identifier": "",
+        "apiKey": ""
     }
 }

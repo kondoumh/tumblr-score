@@ -2,15 +2,14 @@ const fetch = require('node-fetch');
 const config = require('config');
 
 const baseurl = "https://api.tumblr.com/v2/blog/";
-let identifier = process.env.BLOG_IDENTIFIER;
-if (!identifier) {
-    identifier = config.get('Blog.identifier');
-    console.log(identifier);
-}
-let apiKey = process.env.BLOG_API_KEY;
-if (!apiKey) {
-    apiKey = config.get('Blog.apiKey');
-    console.log(apiKey);
+const identifier = process.env.BLOG_IDENTIFIER ? process.env.BLOG_IDENTIFIER : config.get('Blog.identifier');
+const apiKey = process.env.BLOG_API_KEY ? process.env.BLOG_API_KEY : config.get('Blog.apiKey');
+
+console.log(identifier);
+console.log(apiKey);
+if (!apiKey || !identifier) {
+    console.error("API Key or blog identifier not set.");
+    process.exit(1);
 }
 const fs = require('fs');
 const performance = require('performance-now');
@@ -21,6 +20,10 @@ const fetchCount = async() => {
     const response = await fetch(`${baseurl}${identifier}/info?api_key=${apiKey}`);
     const json = await response.json();
     const blog = json['response']['blog'];
+    if (!blog) {
+        console.error("error");
+        process.exit(1);
+    }
     console.log(`title: ${blog['title']}`);
     console.log(`url: ${blog['url']}`);
     const count = blog['posts'];

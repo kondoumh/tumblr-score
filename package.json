@@ -4,8 +4,8 @@
   "description": "Fetch Your Tumblr Score(Reblog, like) via Tumblr API.",
   "main": "main.js",
   "scripts": {
-    "start": "NODE_ENV=production node main.js",
-    "windows": "set NODE_ENV=production&&node main.js",
+    "start": "NODE_ENV=dev node main.js",
+    "windows": "set NODE_ENV=dev&&node main.js",
     "env": "node main.js"
   },
   "keywords": [
