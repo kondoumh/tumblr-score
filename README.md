@@ -1,8 +1,15 @@
 Fetch Tumblr Posts score 
 =============================================
-copy config/default.json --> config/production.json
 
-modify production.json
+## install packages.
+
+```
+$ npm install
+```
+
+## use config (during development)
+
+create config/dev.json
 
 ```json
 {
@@ -13,16 +20,26 @@ modify production.json
 }
 ```
 
-install packages.
-
-```
-$ npm install
-```
-
 run
 ```
 $ npm start
 ```
+
+run (Windows)
+```
+> npm windows
+```
+
+## use environment value (in production)
+
+```
+$ export BLOG_IDENTIFIER=your.tumblr.identifier
+$ export BLOG_API_KEY=yourapikey
+
+$ npm run env
+```
+
+## output
 
 Result file(CSV / JSON) will be created.
 
