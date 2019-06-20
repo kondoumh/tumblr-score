@@ -7,7 +7,7 @@ Fetch Tumblr Posts score
 $ npm install
 ```
 
-## use config (during development)
+## run with config JSON (during development)
 
 create config/dev.json
 
@@ -30,7 +30,7 @@ run (Windows)
 > npm windows
 ```
 
-## use environment value (in production)
+## run with environment value (in production)
 
 ```
 $ export BLOG_IDENTIFIER=your.tumblr.identifier
@@ -44,6 +44,7 @@ $ npm run env
 Result file(JSON) will be created.
 
 - public/tumblr-score.json
+- public/summary.txt
 
 Output image(JSON)
 
