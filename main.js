@@ -29,6 +29,16 @@ const fetchCount = async () => {
     return parseInt(count);
 }
 
+const getDateString = () => {
+    let date = new Date()
+    const options = {
+        year: "numeric", month: "numeric", day: "numeric",
+        hour: "numeric", minute: "numeric", second: "numeric",
+        hour12: false
+    };
+    return date.toLocaleString("ja-JP", options);
+}
+
 const fetchPosts = async (type, offset, minCount = 0) => {
     const response = await fetch(`${baseurl}${identifier}/posts/${type}?notes_info=true&reblog_info=true&offset=${offset}&api_key=${apiKey}`);
     const json = await response.json();
@@ -42,7 +52,7 @@ const fetchPosts = async (type, offset, minCount = 0) => {
                 date: `'${post['date']}'`,
                 type: `'${post['type']}'`,
                 slug: `'${post['slug']}'`,
-                count: `'${post['note_count']}'`
+                count: parseInt(post['note_count'], 10)
             };
             targetPosts.push(postInfo)
         }
@@ -50,7 +60,13 @@ const fetchPosts = async (type, offset, minCount = 0) => {
 }
 
 const output = (path, data) => {
-    fs.writeFile(path, data, (err) => {
+    fs.writeFile(path, data, err => {
+        if (err) { throw err; }
+    });
+}
+
+const append = (path, data) => {
+    fs.appendFile(path, data, err => {
         if (err) { throw err; }
     });
 }
@@ -71,7 +87,11 @@ const fetchMyPosts = async () => {
         if (a.date < b.date) return 1;
         return 0;
     });
-    output(`public/tumblr-score.json`, JSON.stringify(targetPosts, null, 2));
+    output("public/tumblr-score.json", JSON.stringify(targetPosts, null, 2));
+    const total = targetPosts.reduce((a, c) => {
+        return { count: a.count + c.count };
+    });
+    append("public/summary.txt", `${getDateString()},${count},${total.count}\r`);
 }
 
 fetchMyPosts();
