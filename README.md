@@ -41,10 +41,9 @@ $ npm run env
 
 ## output
 
-Result file(CSV / JSON) will be created.
+Result file(JSON) will be created.
 
-- work/tumblr-score-YYYYmmddHHmmdd.csv
-- work/tumblr-score-YYYYmmddHHmmdd.json
+- public/tumblr-score.json
 
 Output image(JSON)
 
