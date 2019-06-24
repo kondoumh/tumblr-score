@@ -48,10 +48,10 @@ const fetchPosts = async (type, offset, minCount = 0) => {
     posts.forEach(post => {
         if (!post['reblogged_root_name'] && parseInt(post['note_count']) >= minCount) {
             const postInfo = {
-                url: `'https://${identifier}/post/${post['id']}'`,
-                date: `'${post['date']}'`,
-                type: `'${post['type']}'`,
-                slug: `'${post['slug']}'`,
+                url: `https://${identifier}/post/${post['id']}`,
+                date: `${post['date']}`,
+                type: `${post['type']}`,
+                slug: `${post['slug']}`,
                 count: parseInt(post['note_count'], 10)
             };
             targetPosts.push(postInfo)
