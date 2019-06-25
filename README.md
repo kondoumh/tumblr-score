@@ -1,6 +1,8 @@
 Fetch Tumblr Posts score 
 =============================================
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/97119e4e-1014-4b22-ac71-2eafb233fed7/deploy-status)](https://app.netlify.com/sites/compassionate-thompson-b0de67/deploys)
+
 ## install packages.
 
 ```
