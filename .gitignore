@@ -73,3 +73,5 @@ dev.json
 # public output
 tumblr-score*
 *.txt
+
+.theia
