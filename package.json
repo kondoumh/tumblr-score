@@ -14,8 +14,11 @@
   "author": "kondoumh",
   "license": "ISC",
   "dependencies": {
-    "config": "^3.1.0",
+    "config": "^3.3.1",
     "node-fetch": "^2.6.0",
     "performance-now": "^2.1.0"
+  },
+  "devDependencies": {
+    "minimist": ">=1.2.3"
   }
 }
