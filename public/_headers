@@ -1,3 +1,2 @@
 /tumblr-score.json
  Access-Control-Allow-Origin: https://tumblr-score-client-kondoumh.netlify.app
- Access-Control-Allow-Headers "X-Custom-Header, Content-Type, Accept"
