@@ -1,7 +1,8 @@
 name: Build and publish
 
 on:
-  push:
+  schedule:
+    - cron:  '*/30 * * * *'
 
 jobs:
   build:
@@ -25,7 +26,7 @@ jobs:
       uses: nwtgck/actions-netlify@v1.0
       with:
         publish-dir: './public'
-        production-branch: add-action
+        production-branch: master
         github-token: ${{ secrets.GITHUB_TOKEN }}
         deploy-message: "Deploy from GitHub Actions"
       env:
