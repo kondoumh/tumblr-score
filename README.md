@@ -1,6 +1,8 @@
 Fetch Tumblr Posts score 
 =============================================
 
+![Build and publish](https://github.com/kondoumh/tumblr-score/workflows/Build%20and%20publish/badge.svg)
+
 [![Netlify Status](https://api.netlify.com/api/v1/badges/97119e4e-1014-4b22-ac71-2eafb233fed7/deploy-status)](https://app.netlify.com/sites/tumblr-score-kondoumh/deploys)
 
 ## install packages.
