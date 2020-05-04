@@ -14,7 +14,9 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: 12.x
-    - run: npm run env
+    - run: |
+        npm install
+        npm run env
       env:
         BLOG_IDENTIFIER: ${{ secrets.BLOG_IDENTIFIER }}
         BLOG_API_KEY: ${{ secrets.BLOG_API_KEY }}
