@@ -15,14 +15,15 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: 12.x
-    - run: |
+    - name: Fetch posts data from tumblr
+      run: |
         npm install
         npm run env
       env:
         BLOG_IDENTIFIER: ${{ secrets.BLOG_IDENTIFIER }}
         BLOG_API_KEY: ${{ secrets.BLOG_API_KEY }}
 
-    - name: Deploy to Netlify
+    - name: Deploy to netlify
       uses: nwtgck/actions-netlify@v1.0
       with:
         publish-dir: './public'
