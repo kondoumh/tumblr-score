@@ -3,6 +3,8 @@ name: Build and publish
 on:
   schedule:
     - cron:  '0 9,21 * * *'
+  repository_dispatch:
+    types: [all]
 
 jobs:
   build:
