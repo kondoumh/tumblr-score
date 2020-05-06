@@ -48,7 +48,7 @@ const fetchPosts = async (type, offset, minCount = 0) => {
     posts.forEach(post => {
         if (!post['reblogged_root_name'] && parseInt(post['note_count']) >= minCount) {
             const postInfo = {
-                url: `https://${identifier}/post/${post['id']}`,
+                url: `${post['post_url']}`,
                 date: `${post['date']}`,
                 type: `${post['type']}`,
                 slug: `${post['slug']}`,
