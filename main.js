@@ -77,7 +77,7 @@ const fetchMyPosts = async () => {
     const start_ms = performance();
     let tasks = [];
     while (offset <= count) {
-        tasks.push(fetchPosts('', offset, 1));
+        tasks.push(fetchPosts('', offset));
         offset += 20;
     }
     await Promise.all(tasks);
