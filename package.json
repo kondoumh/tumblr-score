@@ -19,6 +19,6 @@
     "performance-now": "^2.1.0"
   },
   "devDependencies": {
-    "minimist": ">=1.2.3"
+    "minimist": ">=1.2.6"
   }
 }
