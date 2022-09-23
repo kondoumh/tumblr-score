@@ -1,8 +1,7 @@
 name: Build and publish
 
 on:
-  repository_dispatch:
-    types: [all]
+  workflow_dispatch:
 
 jobs:
   build:
@@ -10,11 +9,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js 12.x
-      uses: actions/setup-node@v1
+    - uses: actions/checkout@v3
+    - name: Setup Node
+      uses: actions/setup-node@v3
       with:
-        node-version: 12.x
+        node-version: 14
     - name: Fetch posts data from tumblr
       run: |
         npm install
